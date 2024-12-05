@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="home" class="section-wrapper">
+
+        <div class="custom-shape-divider-top-1733374070">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
+
+        <div style="position: relative; width: 500px; top: 35%; left: 15%; z-index: 1;">
+            <h1 class="titulo-home">Museu Pigonet</h1>
+            <p class="comentario-home">Arte, vida e movimento</p>
+        </div>
+        <div class="botao">
+            <button id="toggleBtn" class="toggle-btn">&#9664;</button>
+            <div class="img-home">
+                <img src="./assets/img/280px-Polar_Bear_-_Alaska__cropped_-removebg-preview.png" alt="">
+            </div>
+            <!-- <button class="botao-tour">Começar tour</button> -->
+        </div>
+    </div>
+    <hr class="linha-personalizada">
+
+    <div id="sobre" class="section-wrapper-sobre" style="z-index: -0;">
+        <div style="position: relative; width: 500px; top: 5%; left: 5%; z-index: 1;">
+            <h1 class="titulo-sobre">Sobre o Projeto</h1>
+            <p class="comentario-home">Museu Pigonet</p>
+            <p class="comentario-sobre"><br>A arte é uma das expressões mais significativas da cultura humana. Ela
+                transcende barreiras, comunica
+                emoções, histórias e ideias, e tem o poder de nos conectar a diferentes épocas e lugares. Na era
+                digital, a acessibilidade à arte é mais crucial do que nunca, e meu projeto visa tornar isso uma
+                realidade palpável.
+                <br>
+                <br>
+                O objetivo principal do <span>Museu Pigonet</span> é criar uma plataforma envolvente e educativa que
+                ofereça
+                uma experiência semelhante à de visitar um museu físico. Este museu virtual permitirá que os usuários
+                explorem coleções de arte, aprendam sobre artistas e movimentos artísticos, e interajam com as obras de
+                formas inovadoras.
+
+                Além de proporcionar uma experiência rica e acessível no mundo da arte, o projeto também está alinhado
+                com alguns dos Objetivos de Desenvolvimento Sustentável da ONU:
+            </p>
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front" style="background-color: blue;">
+                        <h3>Objetivo ONU 4</h3>
+                        <p>Educação de Qualidade</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Garantir educação inclusiva, equitativa e de qualidade, e promover oportunidades de
+                            aprendizagem ao longo da vida para todos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front" style="background-color: rgb(255, 111, 0);">
+                        <h3>Objetivo ONU 10</h3>
+                        <p>Redução das Desigualdades</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Reduzir a desigualdade dentro dos países e entre eles.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front" style="background-color: rgb(0, 255, 98);">
+                        <h3 style="color: black;">Objetivo ONU 11</h3>
+                        <p style="color: black;">Cidades e Comunidades Sustentáveis</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Tornar as cidades e comunidades inclusivas, seguras, resilientes e sustentáveis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+        <div style="position: relative; width: 500px; top: -10%; left: 55%; z-index: 1;">
+            <h1 class="titulo-sobre2">Eu e a Arte</h1>
+            <p class="comentario-sobre"><br>A arte é uma das expressões mais significativas da cultura humana. Ela
+                transcende barreiras, comunica
+                emoções, histórias e ideias, e tem o poder de nos conectar a diferentes épocas e lugares. Na era
+                digital, a acessibilidade à arte é mais crucial do que nunca, e meu projeto visa tornar isso uma
+                realidade palpável.
+                <br>
+                <br>
+                O objetivo principal do Museu Pigonet é criar uma plataforma envolvente e educativa que ofereça
+                uma experiência semelhante à de visitar um museu físico. Este museu virtual permitirá que os
+                usuários
+                explorem coleções de arte, aprendam sobre artistas e movimentos artísticos, e interajam com as obras
+                de
+                formas inovadoras.
+            </p>
+            <div style="position: relative; bottom: 380px; right: 130%;">
+                <img class="imagem1" src="./assets/img/eu.jpg" alt="">
+            </div>
+        </div>
+
+        <div id="sidebar" class="sidebar">
+            <a href=""></a>
+            <a href=""></a>
+            <a href="#home">Home</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#services">Galeria</a>
+            <a href="login.html">Entrar</a>
+        </div>
+</body>
+
+</html>
+
+<script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.querySelector('.content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+        content.classList.toggle('collapsed');
+        toggleBtn.classList.toggle('hidden');
+        toggleBtn.innerHTML = sidebar.classList.contains('hidden') ? '&#9654;' : '&#9664;';
+    });
+
+</script>
