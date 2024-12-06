@@ -77,7 +77,7 @@ body {
     margin-left: 15px;
 }
 
-.botao-tour {
+/* .botao-tour {
     background-color: #1ABC9C;
     border: none;
     color: white;
@@ -90,11 +90,7 @@ body {
     cursor: pointer;
     border-radius: 12px;
     transition: background-color 0.3s ease;
-}
-
-.botao-tour:hover {
-    background-color: #16deb6;
-}
+} */
 
 .botao {
     display: flex;
@@ -137,6 +133,7 @@ body {
 .toggle-btn {
     position: fixed;
     left: 95%;
+    width: 45px;
     top: 20px;
     background-color: #bebebe;
     color: white;
@@ -146,13 +143,16 @@ body {
     z-index: 1;
 }
 
+.toggle-btn:hover {
+    background-color: #ff5100;
+}
+
 .sidebar.hidden {
     transform: translateX(110%);
 }
 
 .toggle-btn.hidden {
     left: 10px;
-    
 }
 
 .section-wrapper-sobre {
@@ -347,7 +347,7 @@ body {
     border-radius: 5px;
 }
 
-button {
+.login-form button {
     position: relative;
     left: 83px;
     width: 45%;
@@ -360,7 +360,7 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+.login-form button:hover {
     background-color: #367e3a;
 }
 
