@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Document</title>
 </head>
-<body style="display: flex; justify-content: center; align-items: center;">
+<body style="display: flex; justify-content: center; align-items: center;" onload="buscarDados()">
     <div class="container-perfil">
         <div class="card-usuario">
             <img src="./assets/img/eu.jpg" alt="">
@@ -26,18 +26,48 @@
                     <h1>Van gogh</h1>
                 </div>
                 <div class="grafico-pizza">
-                    <h1>Grafico pizza</h1>
+                    <canvas></canvas>
                 </div>
             </div>
             <div class="container-graficos">
                 <div class="grafico-linhas">
-                    <h1>Gráfico movimentos</h1>
-                </div>
-                <div class="grafico-linhas">
-                    <h1>Gráfico artistas</h1>
+                    <canvas></canvas>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+
+<script>
+    function buscarDados() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`usuarios/buscar/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log(resposta)
+                    resposta.json().then(function (dados){
+                        console.log(dados)
+                        var curtidasPosImpressionismo = dados[0].curtidasPosImpressionismo
+                        var curtidasImpressionismo = dados[0].curtidasImpressionismo
+                        var curtidasCubismo = dados[0].curtidasCubismo
+                    })
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+    }
+</script>
+

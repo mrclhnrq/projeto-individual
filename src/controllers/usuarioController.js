@@ -74,7 +74,28 @@ function cadastrar(req, res) {
     }
 }
 
+function buscarDados(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    usuarioModel.buscarDados(idUsuario)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar busca! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+};
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscarDados
 }
