@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel de Obras de Arte</title>
+  <!-- Link para o Swiper.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <style>
+    /* Adicione estilos básicos para o carrossel */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(https://paulodarzegaleria.com.br/wp-content/uploads/2018/02/kemp18_0787.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 93vh;
+    }
+    .swiper {
+      width: 100%;
+      max-width: 800px;
+      margin: 50px auto;
+    }
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      color: #fff;
+      background: #333;
+      height: 500px; /* Altura do slide */
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Estrutura do Carrossel -->
+  <div class="swiper">
+    <div class="swiper-wrapper" id="swiper-wrapper">
+      <!-- Os slides serão adicionados dinamicamente aqui -->
+    </div>
+    <!-- Botões de Navegação -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <!-- Paginação -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+</body>
+</html>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    // Função para buscar obras do backend e popular o carrossel
+    async function carregarObras() {
+      try {
+        // Faz uma requisição para o backend
+        const response = await fetch("/obras/buscarObras");
+        const obras = await response.json();
+
+        const swiperWrapper = document.getElementById('swiper-wrapper');
+
+        // Para cada obra, cria um slide dinamicamente
+        obras.forEach(obra => {
+          const slide = document.createElement('div');
+          slide.classList.add('swiper-slide');
+          slide.innerHTML = `
+            <img src="${obra.url}" alt="Imagem da obra ${obra.titulo}">
+            <div class="obra-info">
+              <h3>${obra.titulo} (ID: ${obra.id})</h3>
+              <p><strong>Artista:</strong> ${obra.artista}</p>
+              <p><strong>Movimento:</strong> ${obra.movimento}</p>
+            </div>
+          `;
+          swiperWrapper.appendChild(slide);
+        });
+
+        // Inicializa o Swiper depois de adicionar os slides
+        new Swiper('.swiper', {
+          loop: true,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          },
+        });
+      } catch (error) {
+        console.error('Erro ao carregar as obras:', error);
+      }
+    }
+
+    // Chama a função ao carregar a página
+    carregarObras();
+  </script>
