@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrossel de Obras de Arte</title>
-  <!-- Link para o Swiper.js CSS -->
+  <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <style>
     body {
@@ -88,13 +88,33 @@
     <div class="swiper-pagination"></div>
   </div>
 
+  <div id="sidebar" class="sidebar">
+    <a href=""></a>
+    <a href=""></a>
+    <a href="index.html">Home</a>
+    <a href="#services">Galeria</a>
+    <a href="cadastro.html">Cadastre-se</a>
+  </div>
+  <button id="toggleBtn" class="toggle-btn">&#9664;</button>
+
 </body>
 
 </html>
 
-<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
+
+  const toggleBtn = document.getElementById('toggleBtn');
+  const sidebar = document.getElementById('sidebar');
+  const content = document.querySelector('.content');
+
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    content.classList.toggle('collapsed');
+    toggleBtn.classList.toggle('hidden');
+    toggleBtn.innerHTML = sidebar.classList.contains('hidden') ? '&#9654;' : '&#9664;';
+  });
+
   // Função para buscar obras do backend e popular o carrossel
   async function carregarObras() {
     try {
@@ -140,6 +160,5 @@
     }
   }
 
-  // Chama a função ao carregar a página
   carregarObras();
 </script>
