@@ -70,6 +70,22 @@
       margin: 0;
       font-size: 16px;
     }
+
+    .like-button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      position: relative;
+      left: 90%;
+      top: 100%;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .like-button:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 
@@ -84,6 +100,7 @@
     <!-- Botões de Navegação -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
+
     <!-- Paginação -->
     <div class="swiper-pagination"></div>
   </div>
@@ -92,7 +109,7 @@
     <a href=""></a>
     <a href=""></a>
     <a href="index.html">Home</a>
-    <a href="#services">Galeria</a>
+    <a href="perfil.html">Perfil</a>
     <a href="cadastro.html">Cadastre-se</a>
   </div>
   <button id="toggleBtn" class="toggle-btn">&#9664;</button>
@@ -129,15 +146,21 @@
         const slide = document.createElement('div');
         slide.classList.add('swiper-slide');
         slide.innerHTML = `
-            <img src="${obra.url}" alt="Imagem da obra ${obra.titulo}">
-            <div class="obra-info">
-              <h3>${obra.titulo} ID: ${obra.idObra}</h3>
-              <p><strong>Artista:</strong> ${obra.artista}</p>
-              <p><strong>Movimento:</strong> ${obra.movimento}</p>
-            </div>
-          `;
+    <img src="${obra.url}" alt="Imagem da obra ${obra.titulo}">
+    <div class="obra-info">
+      <h3>${obra.titulo} ID: ${obra.idObra}</h3>
+      <p><strong>Artista:</strong> ${obra.artista}</p>
+      <p><strong>Movimento:</strong> ${obra.movimento}</p>
+      <!-- Botão de Curtir aqui -->
+      <div class="curtidas">
+        <button class="curtir-btn" data-id="${obra.idObra}">Curtir</button>
+        <span class="curtidas-count" id="curtidas-${obra.idObra}"></span>
+      </div>
+    </div>
+  `;
         swiperWrapper.appendChild(slide);
       });
+
 
       // Inicializa o Swiper depois de adicionar os slides
       new Swiper('.swiper', {
@@ -159,6 +182,36 @@
       console.error('Erro ao carregar as obras:', error);
     }
   }
+
+  document.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('curtir-btn')) {
+      const idObra = event.target.getAttribute('data-id');
+      const fkUsuario = sessionStorage.getItem('ID_USUARIO'); // Recupera o ID do usuário logado
+
+      if (!fkUsuario) {
+        alert('Você precisa estar logado para curtir!');
+        return;
+      }
+
+      try {
+        const response = await fetch('curtidas/curtir', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fkObra: idObra, fkUsuario })
+        });
+
+        if (response.ok) {
+          alert('Curtida registrada com sucesso!');
+        } else {
+          console.error('Erro ao registrar curtida:', await response.text());
+        }
+      } catch (error) {
+        console.error('Erro ao curtir:', error);
+      }
+    }
+  });
+
+
 
   carregarObras();
 </script>
