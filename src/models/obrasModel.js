@@ -6,10 +6,18 @@ const buscarObras = async () => {
     FROM obras
     INNER JOIN artistas ON obras.fkArtista = artistas.idArtista
   `;
-  const [rows] = await db.query(query);
-  return rows;
+  
+  try {
+    // Usa a função 'executar' para realizar a consulta
+    const resultado = await db.executar(query);
+    return resultado; // Retorna o resultado da consulta
+  } catch (erro) {
+    console.error('Erro ao executar a consulta:', erro);
+    throw erro;
+  }
 };
 
 module.exports = { buscarObras };
+
 
 

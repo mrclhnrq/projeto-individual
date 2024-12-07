@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const obraController = require('../controllers/obrasController');
+const obrasController = require('../controllers/obrasController');
 
 // Rota para buscar todas as obras
-router.get('/buscarObras', obraController.buscarObras);
+router.get('/buscarObras', obrasController.buscarObras);
 
 module.exports = router;
