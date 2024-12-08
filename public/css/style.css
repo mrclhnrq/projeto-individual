@@ -10,6 +10,7 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #000000;
 }
 
 .section-wrapper {
@@ -42,76 +43,64 @@ body {
 }
 
 
-.custom-shape-divider-top-1733374070 {
+.custom-shape-divider-top-1733674291 {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    transform: rotate(180deg);
 }
 
-.custom-shape-divider-top-1733374070 svg {
+.custom-shape-divider-top-1733674291 svg {
     position: relative;
     display: block;
-    width: calc(100% + 1.3px);
-    height: 200px;
+    width: calc(236% + 1.3px);
+    height: 473px;
 }
 
-.custom-shape-divider-top-1733374070 .shape-fill {
-    fill: #ffffff;
+.custom-shape-divider-top-1733674291 .shape-fill {
+    fill: #000000;
 }
 
 .titulo-home {
     font-weight: 600;
-    font-size: 80px;
+    font-size: 95px;
     font-style: italic;
     margin-bottom: -10px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(218, 218, 218, 0.5);
+    text-shadow: 2px 2px 5px rgba(255, 110, 32, 0.9);
 }
 
 .comentario-home {
     font-weight: 800;
     font-size: medium;
-    color: rgb(255, 0, 217);
+    color: #00ff88;
     margin-left: 15px;
 }
-
-/* .botao-tour {
-    background-color: #1ABC9C;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: background-color 0.3s ease;
-} */
 
 .botao {
     display: flex;
     flex-direction: column;
     position: relative;
-    left: 55%;
-    bottom: 15%;
+    left: 35%;
+    bottom: 50%;
 }
 
 .botao .img-home img {
-    width: 400px;
+    width: 650px;
 }
 
 .sidebar {
-    height: 97vh;
+    height: 50vh;
     width: 250px;
     position: fixed;
-    top: 0;
-    left: 81.5%;
-    background-color: rgba(49, 49, 49, 0.8);
-    padding-top: 20px;
+    border-radius: 5%;
+    top: 2%;
+    left: 82.5%;
+    background-color: rgba(144, 0, 255, 0.7);
+    padding-top: 55px;
     transition: transform 0.3s ease;
     transform: translateX(0);
 }
@@ -121,22 +110,23 @@ body {
     text-decoration: none;
     font-size: 18px;
     font-weight: 550;
-    color: #1ABC9C;
+    color: #000000;
     display: block;
     transition: background-color 0.3s;
 }
 
 .sidebar a:hover {
-    background-color: #000000;
+    background-color: #8fffcb;
 }
 
 .toggle-btn {
     position: fixed;
     left: 95%;
     width: 45px;
-    top: 20px;
-    background-color: #bebebe;
-    color: white;
+    top: 25px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    background-color: #ff5100;
+    color: #00ff88;
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -144,7 +134,8 @@ body {
 }
 
 .toggle-btn:hover {
-    background-color: #ff5100;
+    background-color: #00ff88;
+    color: #ff5100;
 }
 
 .sidebar.hidden {
@@ -211,7 +202,7 @@ body {
     display: flex;
     position: relative;
     left: 46%;
-    top: -23%;
+    top: -25%;
     gap: 20px;
 }
 
