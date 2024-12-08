@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
 </head>
+
 <body style="display: flex; justify-content: center; align-items: center;" onload="buscarDados()">
     <div class="container-perfil">
         <div class="card-usuario">
             <img src="./assets/img/eu.jpg" alt="">
-            <h1>Nome do usuário</h1>
+            <h1 id="b_usuario"></h1>
             <a href="galeria.html">Ir para Galeria</a>
-            <a href="" style="position: relative; top: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z"></path></svg></a>
+            <a href="" style="position: relative; top: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="32"
+                    height="32" fill="#000000" viewBox="0 0 256 256">
+                    <path
+                        d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z">
+                    </path>
+                </svg></a>
         </div>
         <div class="dash">
             <h1 style="position: relative; top: 13%; left: 3%;">Dashboard</h1>
             <div class="container-kpis">
                 <div class="kpi">
                     <p>Artista favorito</p>
-                    <h1>Picasso</h1>
+                    <div id="artista_fav"></div>
                 </div>
                 <div class="kpi">
                     <p>Movimento favorito</p>
-                    <h1>Van gogh</h1>
+                    <div id="movimento_fav"></div>
                 </div>
                 <div class="grafico-pizza">
-                    <canvas></canvas>
+                    <canvas id="graficoPizza"></canvas>
                 </div>
             </div>
             <div class="container-graficos">
                 <div class="grafico-linhas">
-                    <canvas></canvas>
+                    <canvas id="graficoBarras"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
 
 <script>
     function buscarDados() {
         var idUsuario = sessionStorage.ID_USUARIO;
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
         fetch(`usuarios/buscar/${idUsuario}`, {
             method: "GET",
@@ -49,25 +59,132 @@
                 "Content-type": "application/json"
             }
         }).then(function (resposta) {
-                console.log("resposta: ", resposta);
+            console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
-                    console.log(resposta)
-                    resposta.json().then(function (dados){
-                        console.log(dados)
-                        var curtidasPosImpressionismo = dados[0].curtidasPosImpressionismo
-                        var curtidasImpressionismo = dados[0].curtidasImpressionismo
-                        var curtidasCubismo = dados[0].curtidasCubismo
-                    })
+            if (resposta.ok) {
+                console.log(resposta)
+                resposta.json().then(function (dados) {
+                    console.log(dados)
+                    var curtidasPosImpressionismo = dados[0].curtidasPosImpressionismo
+                    var curtidasImpressionismo = dados[0].curtidasImpressionismo
+                    var curtidasCubismo = dados[0].curtidasCubismo
 
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
+                    var curtidasVanGogh = dados[0].curtidasVanGogh
+                    var curtidasClaudeMonet = dados[0].curtidasClaudeMonet
+                    var curtidasPicasso = dados[0].curtidasPicasso
+
+                    var artista = dados[0].artista
+                    var movimento = dados[0].movimento
+
+
+
+                    artista_fav.innerHTML = `<span id="artista_fav">${artista}</span>`
+                    movimento_fav.innerHTML = `<span id="movimento_fav">${movimento}</span>`
+
+                    criarGraficoPizza(curtidasPosImpressionismo, curtidasImpressionismo, curtidasCubismo);
+                    criarGraficoBarras(curtidasVanGogh, curtidasClaudeMonet, curtidasPicasso)
+                })
+
+            } else {
+                throw "Houve um erro ao tentar capturar os dados.";
+            }
+        })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
 
-    }
-</script>
+    };
 
+    function criarGraficoPizza(curtidasPosImpressionismo, curtidasImpressionismo, curtidasCubismo) {
+        const ctx = document.getElementById('graficoPizza').getContext('2d');
+
+        const dados = {
+            labels: ['Pós-impressionismo', 'Impressionismo', 'Cubismo'],
+            datasets: [{
+                data: [curtidasPosImpressionismo, curtidasImpressionismo, curtidasCubismo],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',   // Cor Pós-impressionismo
+                    'rgba(54, 162, 235, 0.7)',  // Cor Impressionismo
+                    'rgba(255, 206, 86, 0.7)'   // Cor Cubismo
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'pie', // Tipo do gráfico
+            data: dados,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                const label = tooltipItem.label || '';
+                                const value = tooltipItem.raw;
+                                return `${label}: ${value} curtidas`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function criarGraficoBarras(curtidasVanGogh, curtidasClaudeMone, curtidasPicasso) {
+        const ctx = document.getElementById('graficoBarras').getContext('2d');
+
+        const dados = {
+            labels: ['Van Gogh', 'Claude Monet', 'Picasso'],
+            datasets: [{
+                data: [curtidasVanGogh, curtidasClaudeMone, curtidasPicasso],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'bar', //
+            data: dados,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                const label = tooltipItem.label || '';
+                                const value = tooltipItem.raw;
+                                return `${label}: ${value} curtidas`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+</script>
