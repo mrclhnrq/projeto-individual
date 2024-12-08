@@ -7,15 +7,40 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
+    <style>
+        .body-perfil {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./assets/img/1.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #artista_fav {
+            font-size: 24px;
+            font-weight: bold;
+            color: darkorange;
+        }
+
+        #movimento_fav {
+            font-size: 24px;
+            font-weight: bold;
+            color: darkorange;
+        }
+
+    </style>
 </head>
 
-<body style="display: flex; justify-content: center; align-items: center;" onload="buscarDados()">
+<body class="body-perfil" onload="buscarDados()">
     <div class="container-perfil">
         <div class="card-usuario">
             <img src="./assets/img/eu.jpg" alt="">
             <h1 id="b_usuario"></h1>
-            <a href="galeria.html">Ir para Galeria</a>
-            <a href="" style="position: relative; top: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="32"
+            <button class="card-btn"><a href="galeria.html" style="text-decoration: none; font-size: 20px; color: rgb(159, 255, 223);">Galeria</a></button>
+            <img src="./assets/img/logo-removebg-preview.png" alt="" style="position: relative; bottom: -22%;">
+            <a href="" style="position: relative; top: 17%;"><svg xmlns="http://www.w3.org/2000/svg" width="32"
                     height="32" fill="#000000" viewBox="0 0 256 256">
                     <path
                         d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z">
@@ -23,7 +48,7 @@
                 </svg></a>
         </div>
         <div class="dash">
-            <h1 style="position: relative; top: 13%; left: 3%;">Dashboard</h1>
+            <h1 style="position: relative; top: -2%; left: 3%; font-style: italic;">Dashboard</h1>
             <div class="container-kpis">
                 <div class="kpi">
                     <p>Artista favorito</p>
@@ -33,13 +58,13 @@
                     <p>Movimento favorito</p>
                     <div id="movimento_fav"></div>
                 </div>
-                <div class="grafico-pizza">
+                <div class="grafico-pizza" style="width: 400px; height: 200px; max-width: 800px; margin: auto;">
                     <canvas id="graficoPizza"></canvas>
                 </div>
             </div>
             <div class="container-graficos">
                 <div class="grafico-linhas">
-                    <canvas id="graficoBarras"></canvas>
+                    <canvas id="graficoBarras" height="100%"></canvas>
                 </div>
             </div>
         </div>
@@ -120,21 +145,29 @@
             type: 'pie', // Tipo do gráfico
             data: dados,
             options: {
-                responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (tooltipItem) => {
-                                const label = tooltipItem.label || '';
-                                const value = tooltipItem.raw;
-                                return `${label}: ${value} curtidas`;
+                        labels: {
+                            color: '#000000', // Cor dos textos da legenda
+                            font: {
+                                size: 12, // Tamanho da fonte
+                                family: 'Arial', // Fonte usada
                             }
                         }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Curtidas por Movimento Artístico',
+                        color: '#000000', // Cor do título
+                        font: {
+                            size: 16,
+                            weight: 'bold',
+                        }
                     }
-                }
+                },
+                // Outras opções gerais
+                responsive: true,
+                maintainAspectRatio: false
             }
         };
 
@@ -142,49 +175,76 @@
     }
 
     function criarGraficoBarras(curtidasVanGogh, curtidasClaudeMone, curtidasPicasso) {
-        const ctx = document.getElementById('graficoBarras').getContext('2d');
+    const ctx = document.getElementById('graficoBarras').getContext('2d');
 
-        const dados = {
-            labels: ['Van Gogh', 'Claude Monet', 'Picasso'],
-            datasets: [{
-                data: [curtidasVanGogh, curtidasClaudeMone, curtidasPicasso],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
+    const dados = {
+        labels: ['Van Gogh', 'Claude Monet', 'Picasso'],
+        datasets: [{
+            data: [curtidasVanGogh, curtidasClaudeMone, curtidasPicasso],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
 
-        const config = {
-            type: 'bar', //
-            data: dados,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (tooltipItem) => {
-                                const label = tooltipItem.label || '';
-                                const value = tooltipItem.raw;
-                                return `${label}: ${value} curtidas`;
-                            }
+    const config = {
+        type: 'bar',
+        data: dados,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Curtidas por Artista',
+                    color: '#000',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (tooltipItem) => {
+                            const label = tooltipItem.label || '';
+                            const value = tooltipItem.raw;
+                            return `${label}: ${value} curtidas`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: '#000000',
+                        font: {
+                            size: 14,
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        beginAtZero: true,
+                        color: '#000000',
+                        font: {
+                            size: 14,
                         }
                     }
                 }
             }
-        };
+        }
+    };
 
-        new Chart(ctx, config);
-    }
+    new Chart(ctx, config);
+}
+
 
 </script>

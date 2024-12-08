@@ -442,6 +442,7 @@ body {
     width: 80%;
     height: 650px;
     margin: 30px;
+    border-radius: 50px;
 }
 
 .card-usuario {
@@ -451,7 +452,7 @@ body {
     align-items: center;
     width: 400px;
     height: 100%;
-    background-color: #ff00bb;
+    background-color: rgba(0, 255, 128, 0.7);
     padding: 20px;
 }
 
@@ -461,8 +462,22 @@ body {
     border-radius: 50%;
 }
 
+.card-btn {
+    width: 150px;
+    height: 30px;
+    border-radius: 6px;
+    background-color: #ff00bb;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+}
+
+.card-btn:hover {
+    background-color: #ff6600;
+}
+
 .dash{
-    background-color: #00ff88;
+    background-color: rgba(205, 205, 205, 0.7);
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -471,22 +486,28 @@ body {
 }
 
 .kpi{
-    background-color: #0062ff;
+    background-color: #0400ff;
     width: 250px;
     height: 100px;
     font-size: 12px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     margin: 5px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.kpi p {
+    font-size: 16px;
+    font-weight: 200;
 }
 
 .container-kpis {
     position: relative;
     width: 50%;
-    left: 30%;
-    bottom: 10%;
+    left: 10%;
+    bottom: 3%;
 }
 
 .grafico-pizza {
@@ -501,18 +522,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .container-graficos {
     display: flex;
     gap: 15px;
     position: relative;
-    bottom: 35%;
+    bottom: 25%;
     left: 0%;
 }
 
 .grafico-linhas {
-    background-color: #ff00bb;
+    background-color: #7300ff;
     width: 100%;
     height: 300px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
