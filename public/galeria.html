@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrossel de Obras de Arte</title>
+  <title>Galeria</title>
   <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/sessao.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <style>
     body {
@@ -71,20 +72,24 @@
       font-size: 16px;
     }
 
-    .like-button {
-      padding: 10px 20px;
+    .curtir-btn {
+      margin-top: 5px;
+      padding: 5px 10px;
       background-color: #4CAF50;
       position: relative;
-      left: 90%;
-      top: 100%;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     }
 
-    .like-button:hover {
-      background-color: #45a049;
+    .curtir-btn:hover {
+      background-color: #ff2200;
+      box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+      transition: transform 0.2s ease;
     }
   </style>
 </head>
@@ -92,16 +97,17 @@
 <body>
   <div class="background-image"></div>
 
-  <!-- Estrutura do Carrossel -->
+  <div class="alerta_erro" style="position: relative; right: 70%; bottom: -25px; z-index: 1000;">
+    <div class="card_erro" id="cardErro">
+      <span id="mensagem_erro"></span>
+    </div>
+  </div>
+
   <div class="swiper">
     <div class="swiper-wrapper" id="swiper-wrapper">
-      <!-- Os slides serão adicionados dinamicamente aqui -->
     </div>
-    <!-- Botões de Navegação -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-
-    <!-- Paginação -->
     <div class="swiper-pagination"></div>
   </div>
 
@@ -109,6 +115,7 @@
     <a href="index.html">Home</a>
     <a href="perfil.html">Perfil</a>
     <a href="cadastro.html">Cadastre-se</a>
+    <a href="login.html">Entrar</a>
     <img style="position: relative; top: 25%; height: 100px;" src="./assets/img/logo-removebg-preview.png" alt="">
   </div>
   <button id="toggleBtn" class="toggle-btn">&#9664;</button>
@@ -150,7 +157,6 @@
       <h3>${obra.titulo} ID: ${obra.idObra}</h3>
       <p><strong>Artista:</strong> ${obra.artista}</p>
       <p><strong>Movimento:</strong> ${obra.movimento}</p>
-      <!-- Botão de Curtir aqui -->
       <div class="curtidas">
         <button class="curtir-btn" data-id="${obra.idObra}">Curtir</button>
         <span class="curtidas-count" id="curtidas-${obra.idObra}"></span>
@@ -188,7 +194,15 @@
       const fkUsuario = sessionStorage.getItem('ID_USUARIO'); // Recupera o ID do usuário logado
 
       if (!fkUsuario) {
-        alert('Você precisa estar logado para curtir!');
+        // alert('Você precisa estar logado para curtir!');
+        cardErro.style.display = "block";
+        cardErro.style.backgroundColor = '#ff3c3c';
+        mensagem_erro.innerHTML =
+          "Você precisa estar logado para curtir!";
+
+        setTimeout(sumirMensagem, 3000);
+
+        finalizarAguardar();
         return;
       }
 
@@ -200,7 +214,14 @@
         });
 
         if (response.ok) {
-          alert('Curtida registrada com sucesso!');
+          // alert('Curtida registrada com sucesso!');
+          cardErro.style.display = "block";
+          cardErro.style.backgroundColor = '#46ff3c';
+          mensagem_erro.innerHTML =
+            "obra curtida com sucesso!";
+
+          setTimeout(sumirMensagem, 3000);
+          finalizarAguardar();
         } else {
           console.error('Erro ao registrar curtida:', await response.text());
         }
@@ -211,6 +232,9 @@
   });
 
 
+  function sumirMensagem() {
+    cardErro.style.display = "none"
+  }
 
   carregarObras();
 </script>

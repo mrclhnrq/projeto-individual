@@ -6,16 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 
-<body style="margin: 0;">
+<body style="margin: 0;"> 
     <div id="home" class="section-wrapper-login">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-
             <div class="custom-shape-divider-bottom-1733440488">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
                     preserveAspectRatio="none">
@@ -30,7 +25,6 @@
                         class="shape-fill"></path>
                 </svg>
             </div>
-
             <div class="login-container">
                 <div class="login-form">
                     <img style="position: relative; top: 15%;" src="./assets/img/logo-removebg-preview.png" alt="">
@@ -50,7 +44,11 @@
                 <div id="div_aguardar" class="loading-div">
                     <!-- <img src="./assets/circle-loading.gif" id="loading-gif"> -->
                 </div>
-
+                <div class="alerta_erro" style="position: relative; right: -180%; top: 80%; z-index: 1;">
+                    <div class="card_erro" id="cardErro">
+                        <span id="mensagem_erro"></span>
+                    </div>
+                </div>   
                 <div id="div_erros_login"></div>
             </div>
         </div>
@@ -84,7 +82,8 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
+            cardErro.style.display = "block";
+            cardErro.style.backgroundColor = '#ff3c3c';
             mensagem_erro.innerHTML = "Preencha todos os campos.";
 
             setTimeout(sumirMensagem, 3000);
@@ -114,7 +113,7 @@
                 console.log(resposta);
 
                 cardErro.style.display = "block";
-
+                cardErro.style.backgroundColor = '#46ff3c';
                 mensagem_erro.innerHTML =
                     "Login realizado com sucesso! Redirecionando para a Galeria...";
 
@@ -129,7 +128,7 @@
 
                     setTimeout(function () {
                         window.location = "./galeria.html";
-                    }, 1000); // apenas para exibir o loading
+                    }, 2000); // apenas para exibir o loading
 
                 });
 
@@ -137,6 +136,7 @@
 
                 console.log("Houve um erro ao tentar realizar o login!");
                 cardErro.style.display = "block"
+                cardErro.style.backgroundColor = '#ff3c3c';
                 mensagem_erro.innerHTML = "Nome ou senha inválidos. Tente novamente";
 
                 setTimeout(sumirMensagem, 3000);

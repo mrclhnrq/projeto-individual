@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>Cadastro</title>
 </head>
 
 <body style="margin: 0;">
     <div id="home" class="section-wrapper-cadastro">
-        <div class="alerta_erro">
+        <div class="alerta_erro" style="position: relative; top: 80%; z-index: 1;">
             <div class="card_erro" id="cardErro">
               <span id="mensagem_erro"></span>
             </div>
@@ -113,6 +113,7 @@
             senhaVar == ""
         ) {
             cardErro.style.display = "block";
+            cardErro.style.backgroundColor = '#ff3c3c';
             mensagem_erro.innerHTML =
                 "Preencha todos os campos.";
 
@@ -121,6 +122,7 @@
             return false;
         } else if (nomeVar.length < 5) {
             cardErro.style.display = "block";
+            cardErro.style.backgroundColor = '#ff3c3c';
             // nome_input.style.border = "2px solid red"
             mensagem_erro.innerHTML =
                 "Insira um nome válido.";
@@ -130,6 +132,7 @@
             return false;
         } else if (emailUsuarioVar.includes('@') == false) {
             cardErro.style.display = "block";
+            cardErro.style.backgroundColor = '#ff3c3c';
             // email_input.style.border = "2px solid red"
             mensagem_erro.innerHTML =
                 "Insira um email válido.";
@@ -139,6 +142,7 @@
             return false;
         } else if (senhaVar.length <= 8 || naoMaiusculo || naoMinusculo || naoEspecial || naoNumero) {
             cardErro.style.display = "block";
+            cardErro.style.backgroundColor = '#ff3c3c';
             // senha_input.style.border = "2px solid red"
             mensagem_erro.innerHTML =
                 "A senha deve conter ao menos 8 caracteres, 1 número e 1 caractere especial, 1 letra maiúscula e 1 minúscula.";
@@ -183,6 +187,7 @@
 
                 if (resposta.ok) {
                     cardErro.style.display = "block";
+                    cardErro.style.backgroundColor = '#46ff3c';
 
                     mensagem_erro.innerHTML =
                         "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
